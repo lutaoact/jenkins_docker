@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+	<actions/>
+	<description/>
+	<keepDependencies>false</keepDependencies>
+	<properties>
+	  <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.28.1">
+		<projectUrl>https://github.com/lutaoact/jenkins_docker</projectUrl>
+		<displayName/>
+		</com.coravy.hudson.plugins.github.GithubProjectProperty>
+		<jenkins.model.BuildDiscarderProperty>
+		<strategy class="hudson.tasks.LogRotator">
+			<daysToKeep>30</daysToKeep>
+			<numToKeep>100</numToKeep>
+			<artifactDaysToKeep>-1</artifactDaysToKeep>
+			<artifactNumToKeep>-1</artifactNumToKeep>
+		</strategy>
+		</jenkins.model.BuildDiscarderProperty>
+	  <hudson.model.ParametersDefinitionProperty>
+		<parameterDefinitions>
+		  <hudson.model.StringParameterDefinition>
+			<name>REGISTRY</name>
+			<description/>
+			<defaultValue>reg-dev.kirkcloud.com</defaultValue>
+		  </hudson.model.StringParameterDefinition>
+		  <hudson.model.StringParameterDefinition>
+			<name>REPO_NAMESPACE</name>
+			<description/>
+			<defaultValue>1514181927</defaultValue>
+		  </hudson.model.StringParameterDefinition>
+		  <hudson.model.StringParameterDefinition>
+			<name>REPO_NAME</name>
+			<description/>
+			<defaultValue>jenkins_docker</defaultValue>
+			</hudson.model.StringParameterDefinition>
+
+			<hudson.model.StringParameterDefinition>
+			<name>BRANCH_NAME</name>
+			<description/>
+			<defaultValue>master</defaultValue>
+		  </hudson.model.StringParameterDefinition>
+
+		  <hudson.model.StringParameterDefinition>
+			<name>IMAGE_TAG_PREFIX</name>
+			<description/>
+			<defaultValue>latest</defaultValue>
+			</hudson.model.StringParameterDefinition>
+			<hudson.model.StringParameterDefinition>
+			<name>DOCKER_FILE</name>
+			<description/>
+			<defaultValue>Dockerfile</defaultValue>
+		  </hudson.model.StringParameterDefinition>
+		  <hudson.model.StringParameterDefinition>
+			<name>OVERRIDE</name>
+			<description/>
+			<defaultValue>True</defaultValue>
+			</hudson.model.StringParameterDefinition>
+			<hudson.model.StringParameterDefinition>
+			<name>HTTP_PROXY</name>
+			<description/>
+			<defaultValue/>
+		  </hudson.model.StringParameterDefinition>
+		</parameterDefinitions>
+	  </hudson.model.ParametersDefinitionProperty>
+	</properties>
+	<scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
+	  <configVersion>2</configVersion>
+	  <userRemoteConfigs>
+		<hudson.plugins.git.UserRemoteConfig>
+		  <refspec>+refs/heads/master:refs/remotes/origin/master</refspec>
+		  <url>https://github.com/lutaoact/jenkins_docker</url>
+		  <credentialsId>3ce3f75550264f2bad3f2fcdb6d73522-lutaoact@github</credentialsId>
+		</hudson.plugins.git.UserRemoteConfig>
+	  </userRemoteConfigs>
+	  <branches>
+		<hudson.plugins.git.BranchSpec>
+		  <name>*/master</name>
+		</hudson.plugins.git.BranchSpec>
+	  </branches>
+	  <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+	  <submoduleCfg class="list"/>
+	  <extensions/>
+	</scm>
+	<canRoam>true</canRoam>
+	<disabled>false</disabled>
+	<blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+	<blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+	<triggers>
+	  <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.28.1">
+		<spec/>
+	  </com.cloudbees.jenkins.GitHubPushTrigger>
+	</triggers>
+	<concurrentBuild>true</concurrentBuild>
+	<builders>
+	  <hudson.tasks.Shell>
+		<command>
+  
+  #!/bin/bash
+  set -x -e
+	COMMIT_ID=$(git rev-parse --short HEAD)
+	echo "BRANCH $BRANCH_NAME"
+
+	if [ "$IMAGE_TAG_PREFIX" = "" ] ; then
+		IMAGE_TAG_PREFIX=$BRANCH_NAME
+	fi
+
+  if [ $OVERRIDE = "True" ] ; then
+	  DOCKER_TAG=$IMAGE_TAG_PREFIX
+  else
+	  DOCKER_TAG=$IMAGE_TAG_PREFIX-$COMMIT_ID
+	fi
+	
+	BUILD_ARG=""
+	if [ -n "$HTTP_PROXY" ] ; then
+	  BUILD_ARG="--build-arg HTTP_PROXY=${HTTP_PROXY} --build-arg http_proxy=${HTTP_PROXY}"
+	fi
+  
+  docker build $BUILD_ARG -t $REGISTRY/$REPO_NAMESPACE/$REPO_NAME:$DOCKER_TAG -f $DOCKER_FILE .
+  docker login -u admin -p keadmin $REGISTRY
+  docker push $REGISTRY/$REPO_NAMESPACE/$REPO_NAME:$DOCKER_TAG
+  
+		</command>
+	  </hudson.tasks.Shell>
+	</builders>
+	<publishers/>
+	<buildWrappers>
+	  <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+		<deleteDirs>false</deleteDirs>
+		<cleanupParameter/>
+		<externalDelete/>
+	  </hudson.plugins.ws__cleanup.PreBuildCleanup>
+	  <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.8.8"/>
+	</buildWrappers>
+  </project>

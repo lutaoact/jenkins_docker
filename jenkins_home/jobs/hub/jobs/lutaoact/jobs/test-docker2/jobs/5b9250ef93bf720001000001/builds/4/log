@@ -1,0 +1,64 @@
+Started by user [8mha:////4JcHD27guJZLTmzxkLbOYQ55ZlApdf+n66SqBhWvS0RaAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0madmin
+Building in workspace /var/jenkins_home/workspace/hub/lutaoact/test-docker2/5b9250ef93bf720001000001
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Done
+Cloning the remote Git repository
+Cloning repository https://github.com/lutaoact/test-docker2
+ > git init /var/jenkins_home/workspace/hub/lutaoact/test-docker2/5b9250ef93bf720001000001 # timeout=10
+Fetching upstream changes from https://github.com/lutaoact/test-docker2
+ > git --version # timeout=10
+using GIT_ASKPASS to set credentials lutaoact access token for github
+ > git fetch --tags --progress https://github.com/lutaoact/test-docker2 +refs/heads/*:refs/remotes/origin/*
+ > git config remote.origin.url https://github.com/lutaoact/test-docker2 # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/lutaoact/test-docker2 # timeout=10
+Fetching upstream changes from https://github.com/lutaoact/test-docker2
+using GIT_ASKPASS to set credentials lutaoact access token for github
+ > git fetch --tags --progress https://github.com/lutaoact/test-docker2 +refs/heads/master:refs/remotes/origin/master
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+Checking out Revision 13458a135d1b8bf1b2fa835a2cf92149a67db3f5 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 13458a135d1b8bf1b2fa835a2cf92149a67db3f5
+Commit message: "Create 1.txt"
+ > git rev-list --no-walk 13458a135d1b8bf1b2fa835a2cf92149a67db3f5 # timeout=10
+[5b9250ef93bf720001000001] $ /bin/sh -xe /tmp/jenkins1489294716749044771.sh
++ set -x -e
++ git rev-parse --short HEAD
++ COMMIT_ID=13458a1
++ echo BRANCH master
+BRANCH master
++ [ master =  ]
++ [ False = True ]
++ DOCKER_TAG=master-13458a1
++ BUILD_ARG=
++ [ -n  ]
++ docker build -t reg-dev.kirkcloud.com/1514181927/hello-world:master-13458a1 -f Dockerfile .
+Sending build context to Docker daemon   59.9kB
+Step 1/2 : FROM ubuntu:16.04
+ ---> 7aa3602ab41e
+Step 2/2 : ADD 1.txt /1.txt
+ ---> Using cache
+ ---> 26d08456d796
+Successfully built 26d08456d796
+Successfully tagged reg-dev.kirkcloud.com/1514181927/hello-world:master-13458a1
++ docker login -u admin -p keadmin reg-dev.kirkcloud.com
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+Login Succeeded
++ docker push reg-dev.kirkcloud.com/1514181927/hello-world:master-13458a1
+The push refers to repository [reg-dev.kirkcloud.com/1514181927/hello-world]
+540f4c4429ce: Preparing
+bcff331e13e3: Preparing
+2166dba7c95b: Preparing
+5e95929b2798: Preparing
+c2af38e6b250: Preparing
+0a42ee6ceccb: Preparing
+0a42ee6ceccb: Waiting
+bcff331e13e3: Layer already exists
+c2af38e6b250: Layer already exists
+5e95929b2798: Layer already exists
+540f4c4429ce: Layer already exists
+2166dba7c95b: Layer already exists
+0a42ee6ceccb: Layer already exists
+master-13458a1: digest: sha256:94311cd2d6bda82c1dc3e9f5a614ee5e0a843038e7e20b212fa2f45dc134fdb1 size: 1564
+Finished: SUCCESS

@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2018-09-07 10:20:33.518 UTC</timestamp>
+  <md5sum>756444368c2125edc12f7d06daf4fc37</md5sum>
+  <fileName>Credential id=3ce3f75550264f2bad3f2fcdb6d73522-lutaoact@github name=lutaoact/****** (lutaoact access token for github)</fileName>
+  <usages>
+    <entry>
+      <string>hub/lutaoact/jenkins_docker/5b926d9793bf720001000004</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>hub/lutaoact/test-docker2/5b92511493bf720001000002</string>
+      <ranges>1</ranges>
+    </entry>
+    <entry>
+      <string>hub/lutaoact/test-docker2/5b9250ef93bf720001000001</string>
+      <ranges>1-5</ranges>
+    </entry>
+    <entry>
+      <string>hub/lutaoact/jenkins_docker/5b926ddf93bf720001000005</string>
+      <ranges>1-2</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

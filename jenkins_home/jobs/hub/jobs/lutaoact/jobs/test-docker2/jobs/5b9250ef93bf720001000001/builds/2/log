@@ -1,0 +1,39 @@
+Started by user [8mha:////4JcHD27guJZLTmzxkLbOYQ55ZlApdf+n66SqBhWvS0RaAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0madmin
+Building in workspace /var/jenkins_home/workspace/hub/lutaoact/test-docker2/5b9250ef93bf720001000001
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Done
+Cloning the remote Git repository
+Cloning repository https://github.com/lutaoact/test-docker2
+ > git init /var/jenkins_home/workspace/hub/lutaoact/test-docker2/5b9250ef93bf720001000001 # timeout=10
+Fetching upstream changes from https://github.com/lutaoact/test-docker2
+ > git --version # timeout=10
+using GIT_ASKPASS to set credentials lutaoact access token for github
+ > git fetch --tags --progress https://github.com/lutaoact/test-docker2 +refs/heads/*:refs/remotes/origin/*
+ > git config remote.origin.url https://github.com/lutaoact/test-docker2 # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/lutaoact/test-docker2 # timeout=10
+Fetching upstream changes from https://github.com/lutaoact/test-docker2
+using GIT_ASKPASS to set credentials lutaoact access token for github
+ > git fetch --tags --progress https://github.com/lutaoact/test-docker2 +refs/heads/master:refs/remotes/origin/master
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+Checking out Revision 13458a135d1b8bf1b2fa835a2cf92149a67db3f5 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 13458a135d1b8bf1b2fa835a2cf92149a67db3f5
+Commit message: "Create 1.txt"
+ > git rev-list --no-walk 13458a135d1b8bf1b2fa835a2cf92149a67db3f5 # timeout=10
+[5b9250ef93bf720001000001] $ /bin/sh -xe /tmp/jenkins8956214687858573752.sh
++ set -x -e
++ git rev-parse --short HEAD
++ COMMIT_ID=13458a1
++ echo BRANCH master
+BRANCH master
++ [ master =  ]
++ [ False = True ]
++ DOCKER_TAG=master-13458a1
++ BUILD_ARG=
++ [ -n  ]
++ docker build -t reg-dev.kirkcloud.com/1514181927/hello-world:master-13458a1 -f Dockerfile .
+docker: error while loading shared libraries: libltdl.so.7: cannot open shared object file: No such file or directory
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE
